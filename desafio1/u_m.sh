@@ -43,7 +43,19 @@ do
 done
 
 }
-#create_users
-#create_pkey
-#distribuition
-revoke
+case "op" in 
+	ckey)
+		create_users
+		create_pkey
+		;;
+	dkey)
+				
+		distribuition
+		;;
+	rkey)
+		revoke
+		;;	
+
+	esac
+echo "escolha ckey para criar as chaves,dkey para dsitribuí-las, rkey para revogá-las"
+read op
