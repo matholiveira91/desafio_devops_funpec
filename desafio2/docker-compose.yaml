@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  web:
+    container_name: web
+    build:
+      context: .
+      dockerfile: Dockerfile.django  
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./django_example/code
+    ports:
+      - 8000:8000
+      - 3000:3000
+      - 35729:35729
+    env_file:
+      - ./.env.dev
+    stdin_open: true
+    depends_on:
+      - db
+  react:
+    build:
+      dockerfile: Dockerfile.react
+      context: .
+    volumes:
+      - ./my-app/app
+      - /my-app/node_modules
+    ports:
+      - "3000:3000"
+    depends_on:
+      - web
+  db:
+    container_name: db
+    image: postgres:14.1-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=dev_user
+      - POSTGRES_PASSWORD=r00t
+      - POSTGRES_DB=dev
+
+volumes:
+  postgres_data:
+
