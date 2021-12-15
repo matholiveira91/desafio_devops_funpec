@@ -1,0 +1,11 @@
+FROM node:alpine
+
+WORKDIR /app
+
+COPY my-app/package.json /app
+
+RUN yarn install
+
+COPY ./my-app /app
+
+CMD ["npm", "run", "start"]
