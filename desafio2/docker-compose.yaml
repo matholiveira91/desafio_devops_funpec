@@ -19,9 +19,9 @@ services:
     depends_on:
       - db
   react:
-    build:
-      dockerfile: Dockerfile.react
+    build:     
       context: .
+      dockerfile: Dockerfile.react
     volumes:
       - ./my-app/app
       - /my-app/node_modules
